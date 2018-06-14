@@ -1,18 +1,10 @@
 pipeline {
   agent any
   stages {
-    stage('build') {
-      steps {
-        echo 'build successful'
-      }
-    }
-    stage('test') {
-      steps {
-        echo 'test successful'
-      }
-    }
     stage('deploy') {
       steps {
+        step([$class: 'CopyArtifact', projectName: 'test-3'])
+        archiveArtifacts artifacts: '*.sh', fingerprint: true
         echo 'deploy successful'
       }
     }
